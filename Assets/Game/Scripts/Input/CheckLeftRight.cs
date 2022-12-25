@@ -13,6 +13,9 @@ public enum ScreenSide
 
 public class CheckLeftRight : MonoBehaviour
 {
+    /// <summary>
+    /// Side of screen which player interacted. 
+    /// </summary>
     public ScreenSide Side => _screenSide;
 
     [SerializeField]
