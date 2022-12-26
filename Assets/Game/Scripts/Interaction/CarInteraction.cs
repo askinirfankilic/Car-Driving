@@ -65,9 +65,6 @@ public class CarInteraction : MonoBehaviour
             {
                 _carMovement.IsActive = false;
             }
-            else if (!_carMovement.IsCurrent && exit.IsCurrent)
-            {
-            }
         }
         else if (other.CompareTag(Tags.Car))
         {
