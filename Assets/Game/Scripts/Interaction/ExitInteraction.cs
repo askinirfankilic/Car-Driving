@@ -4,17 +4,17 @@ using UnityEngine;
 public class ExitInteraction : MonoBehaviour
 {
     public bool IsCurrent = false;
-    
+
     [SerializeField]
-    private GameObject _currentExitIndicator;
+    private GameObject _visualObject;
 
     private void Awake()
     {
-        ShowCurrentExitIndicator(false);
+        ShowCurrent(false);
     }
 
-    public void ShowCurrentExitIndicator(bool state)
+    public void ShowCurrent(bool state)
     {
-        _currentExitIndicator.SetActive(state);
+        _visualObject.SetActive(state);
     }
 }

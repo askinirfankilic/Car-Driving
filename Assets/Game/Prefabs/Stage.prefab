@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _car: {fileID: 8595234667486486656}
   _carMovement: {fileID: 8595234667486486657}
-  _entrance: {fileID: 8595234667344899021}
+  _entrance: {fileID: 8479990767157462907}
   _exit: {fileID: 8595234667099228890}
   _current: 0
 --- !u!1001 &2793466948987394826
@@ -266,6 +266,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad016aa39f6f27448ab03b40efa31801, type: 3}
+--- !u!114 &8479990767157462907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 236935910837512470, guid: ad016aa39f6f27448ab03b40efa31801, type: 3}
+  m_PrefabInstance: {fileID: 8567879869957123693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae9a6625bf45734badca9f34ef8b8fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8595234667344899021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 121405029532075424, guid: ad016aa39f6f27448ab03b40efa31801, type: 3}

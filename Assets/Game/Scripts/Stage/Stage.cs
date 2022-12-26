@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,7 +13,7 @@ public class Stage : MonoBehaviour
         set
         {
             _current = value;
-            ShowCurrentExitIndicator(_current);
+            ShowCurrent(_current);
         }
     }
 
@@ -38,7 +39,7 @@ public class Stage : MonoBehaviour
 
         Vector3 carPos = _car.transform.position;
         Vector3 exitPos = _exit.transform.position;
-        Vector3 entrancePos = _entrance.position;
+        Vector3 entrancePos = _entrance.transform.position;
 
         DrawBezierStage(stagePos, carPos);
         DrawBezierStage(stagePos, exitPos);
@@ -53,7 +54,7 @@ public class Stage : MonoBehaviour
     [SerializeField]
     private CarMovement _carMovement;
     [SerializeField]
-    private Transform _entrance;
+    private EntranceInteraction _entrance;
     [SerializeField]
     private ExitInteraction _exit;
     [SerializeField]
@@ -90,8 +91,14 @@ public class Stage : MonoBehaviour
         _carMovement.InitializeAutoControlled();
     }
 
-    private void ShowCurrentExitIndicator(bool state)
+    private void ShowCurrent(bool state)
     {
-        _exit.ShowCurrentExitIndicator(state);
+        _exit.ShowCurrent(state);
+        _entrance.ShowEntrance(state);
+    }
+
+    public void ShowCarVisual(bool state)
+    {
+        _car.VisualsObject.SetActive(state);
     }
 }

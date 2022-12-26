@@ -52,6 +52,7 @@ public class StageManager : MonoBehaviour
         {
             if (stage.isActiveAndEnabled)
             {
+                stage.ShowCarVisual(true);
                 stage.SetCarActive(true);
             }
         }
@@ -89,6 +90,7 @@ public class StageManager : MonoBehaviour
             // Set previous stages as auto controlled.
             for (int i = 0; i < _currentStageIndex; i++)
             {
+                _stages[i].ShowCarVisual(false);
                 _stages[i].Current = false;
                 _stages[i].InitializeAutoControlledCar();
                 _stages[i].SetCarCurrent(false);
