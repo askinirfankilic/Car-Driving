@@ -3,15 +3,15 @@ using Zenject;
 
 public class CarInteraction : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
     private TriggerChecker2D _triggerChecker;
-
-    private CarMovement _carMovement;
-
-    private StageManager _stageManager;
-
     [SerializeField]
     private GameObject _currentCarIndicator;
+
+    //References
+    private CarMovement _carMovement;
+    private StageManager _stageManager;
 
     [Inject]
     private void Construct(StageManager stageManager)
@@ -25,7 +25,7 @@ public class CarInteraction : MonoBehaviour
 
         _currentCarIndicator.SetActive(false);
 
-        _triggerChecker.OnTrigerEntered += OnTriggerEntered;
+        _triggerChecker.TriggerEntered += OnTriggerEntered;
         _carMovement.ActiveStateChanged += OnActiveStateChanged;
     }
 
@@ -34,10 +34,9 @@ public class CarInteraction : MonoBehaviour
         _currentCarIndicator.SetActive(state);
     }
 
-
     private void OnDestroy()
     {
-        _triggerChecker.OnTrigerEntered -= OnTriggerEntered;
+        _triggerChecker.TriggerEntered -= OnTriggerEntered;
         _carMovement.ActiveStateChanged -= OnActiveStateChanged;
     }
 

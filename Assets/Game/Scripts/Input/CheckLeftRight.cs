@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// Side of screen which player interacted. 
+/// </summary>
 public enum ScreenSide
 {
     None = 0,
@@ -11,11 +14,11 @@ public enum ScreenSide
     Right = 2
 }
 
+/// <summary>
+/// This class checks player input's side on screen along X axis.
+/// </summary>
 public class CheckLeftRight : MonoBehaviour
 {
-    /// <summary>
-    /// Side of screen which player interacted. 
-    /// </summary>
     public ScreenSide Side => _screenSide;
 
     [SerializeField]

@@ -2,6 +2,9 @@ using Core;
 using UnityEngine;
 using Zenject;
 
+/// <summary>
+/// Bindings for scene lifetime.
+/// </summary>
 public class SceneInstaller : MonoInstaller
 {
     public override void InstallBindings()

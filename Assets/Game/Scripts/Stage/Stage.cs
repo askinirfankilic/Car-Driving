@@ -1,5 +1,8 @@
-using System;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Stage : MonoBehaviour
 {
@@ -13,11 +16,42 @@ public class Stage : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        void DrawBezierStage(Vector3 stagePos, Vector3 targetPos)
+        {
+            float halfHeight = (stagePos.y - targetPos.y) * 0.5f;
+            Vector3 offset = Vector3.up * halfHeight;
+
+            Handles.DrawBezier(
+                stagePos,
+                targetPos,
+                stagePos - offset,
+                targetPos + offset,
+                Color.yellow,
+                EditorGUIUtility.whiteTexture, 1);
+        }
+
+        Vector3 stagePos = transform.position;
+
+        Vector3 carPos = _car.transform.position;
+        Vector3 exitPos = _exit.transform.position;
+        Vector3 entrancePos = _entrance.position;
+
+        DrawBezierStage(stagePos, carPos);
+        DrawBezierStage(stagePos, exitPos);
+        DrawBezierStage(stagePos, entrancePos);
+    }
+#endif
+
 
     [SerializeField]
     private CarInteraction _car;
     [SerializeField]
     private CarMovement _carMovement;
+    [SerializeField]
+    private Transform _entrance;
     [SerializeField]
     private ExitInteraction _exit;
     [SerializeField]
