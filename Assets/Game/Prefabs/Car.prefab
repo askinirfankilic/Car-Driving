@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1184686035651588361}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Car
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,12 +299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f920154ffb330f4c988b1fce48d8e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCurrent: 0
-  _inputData:
+  _movementData:
     ScreenInputs: 
   _speed: 5
   _rotationSpeed: 180
   _isActive: 0
+  _isCurrent: 0
 --- !u!114 &1184686035651588361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 1184686036278861916}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

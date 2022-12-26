@@ -48,6 +48,7 @@ public class Stage : MonoBehaviour
     public void SetCarCurrent(bool state)
     {
         _carMovement.IsCurrent = state;
+        _exit.IsCurrent = state;
     }
 
     public void InitializeAutoControlledCar()

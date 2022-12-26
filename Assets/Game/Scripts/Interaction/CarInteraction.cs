@@ -9,8 +9,9 @@ public class CarInteraction : MonoBehaviour
     private CarMovement _carMovement;
 
     private StageManager _stageManager;
-    
-    [SerializeField] private GameObject _currentCarIndicator;
+
+    [SerializeField]
+    private GameObject _currentCarIndicator;
 
     [Inject]
     private void Construct(StageManager stageManager)
@@ -21,9 +22,9 @@ public class CarInteraction : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _carMovement);
-        
+
         _currentCarIndicator.SetActive(false);
-        
+
         _triggerChecker.OnTrigerEntered += OnTriggerEntered;
         _carMovement.ActiveStateChanged += OnActiveStateChanged;
     }
@@ -39,7 +40,7 @@ public class CarInteraction : MonoBehaviour
         _triggerChecker.OnTrigerEntered -= OnTriggerEntered;
         _carMovement.ActiveStateChanged -= OnActiveStateChanged;
     }
-    
+
     private void OnTriggerEntered(Collider2D other)
     {
         if (other.CompareTag(Tags.Obstacle))
@@ -52,9 +53,10 @@ public class CarInteraction : MonoBehaviour
         else if (other.CompareTag(Tags.Exit))
         {
             Debug.Log("Exit!", other);
+            var exit = other.GetComponent<ExitInteraction>();
             _carMovement.IsActive = false;
-            
-            if (_carMovement.IsCurrent)
+
+            if (_carMovement.IsCurrent && exit.IsCurrent)
             {
                 _stageManager.LoadNextStage();
             }

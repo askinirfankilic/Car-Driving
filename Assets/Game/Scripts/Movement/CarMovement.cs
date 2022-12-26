@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class CarMovement : MonoBehaviour
@@ -12,7 +14,7 @@ public class CarMovement : MonoBehaviour
     /// This can be later used for auto controlled cars.
     /// </summary>
     [Serializable]
-    public class InputData
+    public class MovementData
     {
         public List<ScreenSide> ScreenInputs;
     }
@@ -22,6 +24,7 @@ public class CarMovement : MonoBehaviour
         get => _isActive;
         set => _isActive = value;
     }
+
     public bool IsCurrent
     {
         get => _isCurrent;
@@ -35,12 +38,11 @@ public class CarMovement : MonoBehaviour
     public event Action<bool> ActiveStateChanged;
 
     [SerializeField]
-    private InputData _inputData;
+    private MovementData _movementData;
 
-    [SerializeField]
     private float _speed = 5;
-    [SerializeField]
     private float _rotationSpeed = 180f;
+
     [SerializeField]
     private bool _isActive;
     [SerializeField]
@@ -48,26 +50,31 @@ public class CarMovement : MonoBehaviour
 
     private CheckLeftRight _checkLeftRight;
     private PlayerInput _playerInput;
+    private CarSettings _carSettings;
 
     private IEnumerable<ScreenSide> _inputDataEnumerable;
     private IEnumerator _inputDataEnumerator;
 
     [Inject]
-    private void Construct(CheckLeftRight checkLeftRight, PlayerInput playerInput)
+    private void Construct(CheckLeftRight checkLeftRight, PlayerInput playerInput, CarSettings carSettings)
     {
         _checkLeftRight = checkLeftRight;
         _playerInput = playerInput;
+        _carSettings = carSettings;
+
+        _speed = _carSettings.Speed;
+        _rotationSpeed = _carSettings.RotationSpeed;
     }
 
     public void InitializeAutoControlled()
     {
-        _inputDataEnumerable = _inputData.ScreenInputs;
+        _inputDataEnumerable = _movementData.ScreenInputs;
         _inputDataEnumerator = _inputDataEnumerable.GetEnumerator();
     }
 
     public void ClearInputData()
     {
-        _inputData.ScreenInputs.Clear();
+        _movementData.ScreenInputs.Clear();
     }
 
     private void FixedUpdate()
@@ -79,7 +86,7 @@ public class CarMovement : MonoBehaviour
             Vector3 movement = transform.up * (_speed * Time.fixedDeltaTime);
             transform.position += movement;
 
-            _inputData.ScreenInputs.Add(_checkLeftRight.Side);
+            _movementData.ScreenInputs.Add(_checkLeftRight.Side);
 
             switch (_checkLeftRight.Side)
             {

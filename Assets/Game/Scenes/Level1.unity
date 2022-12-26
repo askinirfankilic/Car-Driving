@@ -422,7 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 8b941f497c5b46b469fd6f74e614febb, type: 2}
   _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
@@ -488,7 +489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &366048323
 MonoBehaviour:
@@ -1171,7 +1172,7 @@ Transform:
   - {fileID: 1734124985}
   - {fileID: 1137992080}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522986512
 GameObject:
