@@ -47,6 +47,7 @@ public class Stage : MonoBehaviour
 #endif
 
 
+    [Header("References")]
     [SerializeField]
     private CarInteraction _car;
     [SerializeField]
