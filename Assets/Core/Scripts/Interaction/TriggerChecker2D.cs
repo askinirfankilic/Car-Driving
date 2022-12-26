@@ -1,25 +1,28 @@
 ﻿using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-public class TriggerChecker2D : MonoBehaviour
+namespace Core
 {
-    public Action<Collider2D> TriggerEntered;
-    public Action<Collider2D> TriggerStayed;
-    public Action<Collider2D> TriggerExitted;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    [RequireComponent(typeof(Collider2D))]
+    public class TriggerChecker2D : MonoBehaviour
     {
-        TriggerEntered?.Invoke(other);
-    }
+        public Action<Collider2D> TriggerEntered;
+        public Action<Collider2D> TriggerStayed;
+        public Action<Collider2D> TriggerExitted;
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        TriggerStayed?.Invoke(other);
-    }
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            TriggerEntered?.Invoke(other);
+        }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        TriggerExitted?.Invoke(other);
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            TriggerStayed?.Invoke(other);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            TriggerExitted?.Invoke(other);
+        }
     }
 }
