@@ -85,8 +85,10 @@ public class CarMovement : MonoBehaviour
         }
         else
         {
-            _movementDataEnumerator.MoveNext();
-            MoveAndRotate((ScreenSide) _movementDataEnumerator.Current);
+            if (_movementDataEnumerator.MoveNext())
+            {
+                MoveAndRotate((ScreenSide) _movementDataEnumerator.Current);
+            }
         }
     }
 
