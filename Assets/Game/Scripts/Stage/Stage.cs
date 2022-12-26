@@ -19,8 +19,6 @@ public class Stage : MonoBehaviour
     [SerializeField]
     private CarMovement _carMovement;
     [SerializeField]
-    private EntranceInteraction _entrance;
-    [SerializeField]
     private ExitInteraction _exit;
     [SerializeField]
     private bool _current = false;

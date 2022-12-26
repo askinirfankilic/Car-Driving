@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +12,13 @@ public class StageManager : MonoBehaviour
     private int _currentStageIndex = 0;
 
     private PlayerInput _playerInput;
+    private EventManager _eventManager;
 
     [Inject]
-    private void Construct(PlayerInput playerInput)
+    private void Construct(PlayerInput playerInput, EventManager eventManager)
     {
         _playerInput = playerInput;
+        _eventManager = eventManager;
     }
 
     private void Start()
@@ -52,7 +55,7 @@ public class StageManager : MonoBehaviour
                 stage.SetCarActive(true);
             }
         }
-        
+
         _playerInput.OnMouseButtonDown -= OnMouseButtonDownHandler;
     }
 
@@ -69,15 +72,15 @@ public class StageManager : MonoBehaviour
     {
         if (_currentStageIndex == _stages.Count - 1)
         {
-            //TODO: Load next level
-            Debug.Log("Next Level");
+            //Next Level
+            _eventManager.InvokeGameStateChanged(GameState.Finish);
         }
         else
         {
             // Set current player controlled stage.
             _currentStageIndex++;
             _currentStage = _stages[_currentStageIndex];
-            
+
             _currentStage.Current = true;
             _currentStage.SetCarCurrent(true);
             _currentStage.gameObject.SetActive(true);

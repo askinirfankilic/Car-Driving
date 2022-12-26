@@ -1,10 +1,12 @@
-using Core;
 using Zenject;
 
-public class ProjectInstaller : MonoInstaller
+namespace Core
 {
-    public override void InstallBindings()
+    public class ProjectInstaller : MonoInstaller
     {
-        Container.Bind<ILevelManager>().To<LevelManager>().AsSingle().NonLazy();
+        public override void InstallBindings()
+        {
+            Container.Bind(typeof(ILevelManager), typeof(IInitializable)).To<LevelManager>().AsSingle().NonLazy();
+        }
     }
 }
