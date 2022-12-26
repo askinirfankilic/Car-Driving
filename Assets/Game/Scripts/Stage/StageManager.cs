@@ -40,6 +40,9 @@ public class StageManager : MonoBehaviour
         _playerInput.OnMouseButtonDown += OnMouseButtonDownHandler;
     }
 
+    /// <summary>
+    /// Checks first player input at start of every stage.
+    /// </summary>
     private void OnMouseButtonDownHandler(Vector2 position)
     {
         foreach (var stage in _stages)

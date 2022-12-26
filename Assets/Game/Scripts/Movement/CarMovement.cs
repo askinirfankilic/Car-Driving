@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Scripts.Data;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class CarMovement : MonoBehaviour
@@ -40,26 +38,25 @@ public class CarMovement : MonoBehaviour
     [SerializeField]
     private MovementData _movementData;
 
-    private float _speed = 5;
-    private float _rotationSpeed = 180f;
 
     [SerializeField]
     private bool _isActive;
     [SerializeField]
     private bool _isCurrent = false;
 
+    private float _speed;
+    private float _rotationSpeed;
+
     private CheckLeftRight _checkLeftRight;
-    private PlayerInput _playerInput;
     private CarSettings _carSettings;
 
-    private IEnumerable<ScreenSide> _inputDataEnumerable;
-    private IEnumerator _inputDataEnumerator;
+    private IEnumerable<ScreenSide> _movementDataEnumerable;
+    private IEnumerator _movementDataEnumerator;
 
     [Inject]
     private void Construct(CheckLeftRight checkLeftRight, PlayerInput playerInput, CarSettings carSettings)
     {
         _checkLeftRight = checkLeftRight;
-        _playerInput = playerInput;
         _carSettings = carSettings;
 
         _speed = _carSettings.Speed;
@@ -68,8 +65,8 @@ public class CarMovement : MonoBehaviour
 
     public void InitializeAutoControlled()
     {
-        _inputDataEnumerable = _movementData.ScreenInputs;
-        _inputDataEnumerator = _inputDataEnumerable.GetEnumerator();
+        _movementDataEnumerable = _movementData.ScreenInputs;
+        _movementDataEnumerator = _movementDataEnumerable.GetEnumerator();
     }
 
     public void ClearInputData()
@@ -83,61 +80,49 @@ public class CarMovement : MonoBehaviour
 
         if (_isCurrent)
         {
-            Vector3 movement = transform.up * (_speed * Time.fixedDeltaTime);
-            transform.position += movement;
-
             _movementData.ScreenInputs.Add(_checkLeftRight.Side);
-
-            switch (_checkLeftRight.Side)
-            {
-                case ScreenSide.None:
-                {
-                    return;
-                }
-                case ScreenSide.Left:
-                {
-                    float turn = +1 * _rotationSpeed * Time.fixedDeltaTime;
-                    Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
-                    transform.rotation *= turnRotation;
-                    break;
-                }
-                case ScreenSide.Right:
-                {
-                    float turn = -1 * _rotationSpeed * Time.fixedDeltaTime;
-                    Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
-                    transform.rotation *= turnRotation;
-                    break;
-                }
-            }
+            MoveAndRotate(_checkLeftRight.Side);
         }
         else
         {
-            Vector3 movement = transform.up * (_speed * Time.fixedDeltaTime);
-            transform.position += movement;
+            _movementDataEnumerator.MoveNext();
+            MoveAndRotate((ScreenSide) _movementDataEnumerator.Current);
+        }
+    }
 
-            if (_inputDataEnumerator.MoveNext())
+    private void MoveAndRotate(ScreenSide screenSide)
+    {
+        Move();
+        Rotate(screenSide);
+    }
+
+    private void Move()
+    {
+        Vector3 movement = transform.up * (_speed * Time.fixedDeltaTime);
+        transform.position += movement;
+    }
+
+    private void Rotate(ScreenSide screenSide)
+    {
+        switch (screenSide)
+        {
+            case ScreenSide.None:
             {
-                switch (_inputDataEnumerator.Current)
-                {
-                    case ScreenSide.None:
-                    {
-                        return;
-                    }
-                    case ScreenSide.Left:
-                    {
-                        float turn = +1 * _rotationSpeed * Time.fixedDeltaTime;
-                        Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
-                        transform.rotation *= turnRotation;
-                        break;
-                    }
-                    case ScreenSide.Right:
-                    {
-                        float turn = -1 * _rotationSpeed * Time.fixedDeltaTime;
-                        Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
-                        transform.rotation *= turnRotation;
-                        break;
-                    }
-                }
+                return;
+            }
+            case ScreenSide.Left:
+            {
+                float turn = +1 * _rotationSpeed * Time.fixedDeltaTime;
+                Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
+                transform.rotation *= turnRotation;
+                break;
+            }
+            case ScreenSide.Right:
+            {
+                float turn = -1 * _rotationSpeed * Time.fixedDeltaTime;
+                Quaternion turnRotation = Quaternion.Euler(0, 0, turn);
+                transform.rotation *= turnRotation;
+                break;
             }
         }
     }
