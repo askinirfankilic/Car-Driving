@@ -51,13 +51,12 @@ public class CarInteraction : MonoBehaviour
         }
         else if (other.CompareTag(Tags.Exit))
         {
-            Debug.Log("Exit!", other);
             var exit = other.GetComponent<ExitInteraction>();
-            _carMovement.IsActive = false;
-
             if (_carMovement.IsCurrent && exit.IsCurrent)
             {
+                Debug.Log("Exit!", other);
                 _stageManager.LoadNextStage();
+                _carMovement.IsActive = false;
             }
         }
         else if (other.CompareTag(Tags.Car))
