@@ -29,8 +29,9 @@ public class Stage : MonoBehaviour
                 targetPos,
                 stagePos - offset,
                 targetPos + offset,
-                Color.yellow,
-                EditorGUIUtility.whiteTexture, 1);
+                Color.white,
+                EditorGUIUtility.whiteTexture,
+                2);
         }
 
         Vector3 stagePos = transform.position;
