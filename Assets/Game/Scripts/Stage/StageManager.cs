@@ -108,6 +108,7 @@ public class StageManager : MonoBehaviour
         {
             _stages[i].Current = false;
             _stages[i].InitializeAutoControlledCar();
+            _stages[i].ShowCarVisual(false);
             _stages[i].SetCarCurrent(false);
             _stages[i].SetCarActive(false);
             _stages[i].Initialize();

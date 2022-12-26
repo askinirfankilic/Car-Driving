@@ -5,7 +5,7 @@ public class CarInteraction : MonoBehaviour
 {
     [Header("References")]
     public GameObject VisualsObject;
-    
+
     [SerializeField]
     private TriggerChecker2D _triggerChecker;
     [SerializeField]
@@ -54,16 +54,19 @@ public class CarInteraction : MonoBehaviour
         else if (other.CompareTag(Tags.Exit))
         {
             var exit = other.GetComponent<ExitInteraction>();
-            
+
             if (_carMovement.IsCurrent && exit.IsCurrent)
             {
                 Debug.Log("Exit!", other);
                 _stageManager.LoadNextStage();
                 _carMovement.IsActive = false;
             }
-            else if (!_carMovement.IsCurrent)
+            else if (!_carMovement.IsCurrent && !exit.IsCurrent)
             {
                 _carMovement.IsActive = false;
+            }
+            else if (!_carMovement.IsCurrent && exit.IsCurrent)
+            {
             }
         }
         else if (other.CompareTag(Tags.Car))
